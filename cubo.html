@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubo en CSS</title>
+    <style>
+
+        @keyframes miAnimacion {
+            0% {
+                transform: rotateX(0deg) rotateY(360deg);
+            }
+            25% {
+                transform: rotateX(90deg) rotateY(270deg) translateZ(100px);
+            }
+            50% {
+                transform: rotateX(180deg) rotateY(180deg) translateX(500px);
+            }
+            75% {
+                transform: rotateX(270deg) rotateY(90deg) translateZ(700px);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(0deg) translateY(400px);
+            }
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+        }
+        .cubo {
+            position: relative;
+            margin: 500px auto;
+            transform: perspective(700px) rotateX(-30deg) rotateY(-30deg);
+            transform-style: preserve-3d;
+
+            animation: miAnimacion 5s 0s ease-in-out both infinite alternate;
+        }
+
+        .cara {
+            position: absolute;
+            font-size: 60px;
+            text-align: center;
+            line-height: 200px;
+            color: brown;
+        }
+
+        #superior {
+            background: lightblue;
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        #frente {
+            background: yellow;
+            transform: translateZ(100px);
+        }
+
+        #atras {
+            background: orange;
+            transform: translateZ(-100px);
+        }
+
+        #derecha {
+            background: limegreen;
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        #inferior {
+            background: purple;
+            transform: rotateX(90deg) translateZ(-100px);
+        }
+
+        #izquierda {
+            background: pink;
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <div class="cubo">
+        <div class="cara" id="superior">1</div>
+        <div class="cara" id="frente">2</div>
+        <div class="cara" id="derecha">3</div>
+        <div class="cara" id="izquierda">4</div>
+        <div class="cara" id="inferior">5</div>
+        <div class="cara" id="atras">6</div>
+    </div>
+
+</body>
+</html>

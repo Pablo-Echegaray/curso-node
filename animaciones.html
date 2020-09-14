@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Animaciones en CSS</title>
+
+        <style>
+            h2 {
+                color: blue;
+            }
+
+            /*
+        @keyframes miMovimiento {
+            from {
+                width: 100px;
+                background-color: lightblue;
+            }
+            to {
+                width: 500px;
+                background-color: limegreen;
+            }
+        }
+        */
+
+            @keyframes miMovimiento {
+                0% {
+                    width: 300px;
+                    background-color: lightblue;
+                    opacity: 0;
+                }
+                50% {
+                    width: 200px;
+                    transform: rotateX(45deg) rotateY(20deg);
+                    background-color: red;
+                    opacity: 0.6;
+                }
+                80% {
+                    width: 600px;
+                    transform: rotateY(180deg) translateY(400px);
+                    background-color: blue;
+                    opacity: 0.8;
+                }
+                100% {
+                    width: 1000px;
+                    background-color: limegreen;
+                    opacity: 1;
+                }
+            }
+
+            div {
+                margin: 50px;
+
+                width: 200px;
+                height: 200px;
+                background-color: pink;
+
+                border-radius: 10px;
+                padding: 10px;
+
+                animation-name: miMovimiento;
+                animation-duration: 8s;
+                animation-delay: 1000ms;
+                animation-timing-function: ease-in-out;
+                animation-fill-mode: both;
+                animation-iteration-count: 2; /*infinite;*/
+                animation-direction: alternate;
+
+                animation-play-state: running; /* paused; */
+
+                color: white;
+                text-align: center;
+                line-height: 200px;
+                font-size: 26px;
+
+                background-image: url("https://tiposde.top/wp-content/uploads/2019/08/1.-Paisaje-f%C3%ADsico.jpg");
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Animaciones en CSS</h2>
+        <h3></h3>
+
+        <button id="btn-animar">Animar</button>
+        <button id="btn-pausar">Pausar</button>
+        <hr />
+
+        <div id="elemento-animado">Mi animación!!!</div>
+
+        <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero
+            tenetur distinctio quibusdam maiores dolorem ducimus magni iure
+            repudiandae eius! Illo distinctio iste nostrum quis, sunt nam,
+            voluptatibus repellendus, deleniti eius eveniet sit libero omnis vel
+            perspiciatis officiis quibusdam sint ex aliquam hic corporis aut!
+            Rerum libero quaerat aperiam iste enim commodi, tenetur veritatis
+            maiores expedita quae saepe animi suscipit sit. Repellat reiciendis
+            distinctio autem itaque mollitia ullam accusantium est facere
+            corporis perferendis, consequuntur illum doloremque. Aliquam labore
+            sit doloremque in libero ipsam placeat assumenda consectetur
+            accusamus iusto voluptates, quod minima, cum iste minus dolor. Rem
+            distinctio cum beatae laudantium tenetur consectetur expedita veniam
+            voluptatem itaque quam possimus sunt magni doloremque velit
+            asperiores reprehenderit, laboriosam eum quia sit quidem quaerat.
+            Impedit odio quos voluptas nostrum, magni suscipit adipisci et natus
+            nesciunt blanditiis minima. Aperiam perspiciatis sequi, eos velit
+            ullam non quis mollitia optio voluptates esse illo iure harum neque
+            facere modi totam nam molestias, sunt nisi quidem laborum vel odio?
+            Cumque, ea soluta odio laboriosam quas vitae et voluptatem maiores
+            neque at fuga sunt modi unde perferendis quam suscipit! Voluptatum
+            soluta at similique dolores libero cumque, sint molestiae, aliquid
+            dicta perferendis inventore quaerat accusantium aliquam? Odit sunt,
+            placeat a veritatis voluptates minus beatae laborum autem inventore!
+            Odit, quidem. Eveniet, asperiores odit et sunt alias velit quod
+            praesentium, natus excepturi possimus aliquam quasi tempore tenetur
+            labore quae. Tenetur, sapiente iure. Esse id incidunt sint culpa
+            fugiat vitae cupiditate aut dolorum repellendus eaque cum
+            perferendis itaque officia voluptatem doloribus repudiandae
+            exercitationem sunt quia distinctio voluptatibus, iusto veritatis
+            ex. Necessitatibus maxime minus odit error corporis et similique
+            corrupti consectetur quia. Minima sapiente laudantium culpa voluptas
+            similique, animi labore rem dolorem iure deleniti consequuntur
+            inventore, natus, dolor minus vero nemo autem. Quisquam inventore
+            error quidem eligendi, numquam magnam, dicta assumenda illum dolor
+            laudantium dignissimos perferendis harum cupiditate aperiam corporis
+            vitae atque. Voluptates inventore nostrum modi. Quam, qui distinctio
+            vitae aut molestiae quia totam laboriosam ipsam optio error officiis
+            quod, velit unde, dolore sit accusantium? Est nisi neque aspernatur
+            perspiciatis expedita error quas, quisquam quod qui exercitationem
+            facere consequuntur molestiae doloremque autem quibusdam veniam,
+            soluta, fuga alias tenetur ut nesciunt totam? Culpa quas dolor quia
+            quo harum? Reprehenderit voluptates sit voluptatibus magni iusto
+            provident laborum iure expedita, odio quaerat et magnam cupiditate
+            iste excepturi neque temporibus assumenda! Beatae id aut quisquam
+            error itaque tempora qui excepturi a porro, deleniti inventore
+            pariatur laboriosam. Dolorum quibusdam dolorem minus quis error
+            aperiam vel quaerat, eos ut iusto distinctio dicta voluptas eum?
+            Natus, cumque tenetur eos est fugiat ratione expedita animi possimus
+            libero exercitationem ipsa repellendus delectus dolores doloribus
+            laudantium eum praesentium molestias a! Tempora recusandae officiis
+            tempore modi, natus commodi nulla accusamus eos odio amet voluptates
+            deleniti tenetur sunt ad aliquam eaque id dolores ea. Velit
+            recusandae laudantium iusto explicabo sunt inventore eligendi error
+            alias minima, tempore temporibus perspiciatis, architecto
+            consectetur saepe praesentium magni assumenda repellendus autem enim
+            nobis placeat quam! Similique saepe, provident quae voluptatem
+            inventore fuga ipsam omnis alias, delectus animi earum consequatur?
+            Quam id illum facilis. Eveniet minima iure aliquid voluptates
+            doloribus, tempore at fuga dolore ducimus hic natus. Reiciendis et
+            ullam non libero placeat tenetur numquam nulla ad deserunt
+            voluptate! Cumque tenetur facere hic placeat voluptatem eaque enim
+            non beatae quibusdam? Totam repudiandae magnam culpa molestias ex
+            non cumque a officia deleniti earum temporibus corrupti ut provident
+            dignissimos at, suscipit soluta impedit, tenetur veritatis
+            accusantium minus cum dolorem natus eum. Praesentium aliquam, nam ab
+            at dignissimos ipsum similique. Facere quis qui, temporibus sequi
+            odio sint obcaecati reiciendis fugit eaque itaque ullam dolores
+            laboriosam, eos laborum. Libero repellendus quod, incidunt sit
+            facere voluptate illo velit explicabo praesentium animi iusto
+            pariatur maxime veritatis fugit nam quis? Minima, ratione officiis
+            iusto illum illo enim ex obcaecati ab praesentium dolores
+            doloremque. Culpa rerum cupiditate tenetur sapiente dolorum beatae
+            nisi nemo nam atque consequatur inventore quibusdam voluptatum
+            obcaecati vero laboriosam expedita deserunt ipsum eaque labore sed,
+            aperiam esse quaerat doloribus itaque. Enim fuga laudantium quisquam
+            iusto! Excepturi velit, quo nemo provident tenetur numquam quidem
+            voluptates minus et explicabo cupiditate ipsum vel? Quos laborum id
+            repellendus tempore. Accusantium repellendus enim, incidunt,
+            laudantium totam tenetur alias aut eveniet, corrupti quibusdam
+            labore? Neque vel nesciunt a dicta itaque aliquid nam distinctio eos
+            ullam exercitationem temporibus magnam ea, commodi earum nemo odit
+            aut sit asperiores repellendus inventore? Quaerat quidem quas saepe
+            maiores blanditiis quod delectus eos voluptates, quam doloribus
+            veritatis vitae magni ratione, maxime culpa quia. Nobis aspernatur
+            magnam ipsam corrupti architecto nisi. Maxime maiores repellendus
+            recusandae nemo, distinctio quas quod tempore quasi. Ipsa, odio
+            cupiditate. Commodi cum mollitia, sequi beatae asperiores dolorum
+            aliquid. Voluptate nihil odit, rem dicta asperiores dolorum autem,
+            ea sunt praesentium labore quo quasi possimus quas, quae suscipit
+            veniam accusamus ducimus quaerat et beatae iste quis. Ut mollitia
+            odit tenetur iure fuga natus quas, eum ipsam perspiciatis optio at
+            non culpa, saepe assumenda delectus? Sapiente, minima dolores
+            praesentium consequatur quam fugit nulla odio dolorum consequuntur
+            delectus vero, cum qui ex rem placeat facilis sint eius
+            exercitationem reprehenderit obcaecati vel. Repellendus dicta
+            cupiditate modi minima dignissimos earum. Reprehenderit eligendi,
+            quisquam ab laudantium adipisci praesentium deleniti maiores
+            aliquid, nemo, saepe aspernatur numquam? Illum, vel quia natus ipsam
+            nemo vitae quaerat expedita itaque et reprehenderit obcaecati odio!
+            Dolorem rem id porro optio reiciendis repudiandae mollitia modi?
+            Accusantium error quidem laboriosam in doloribus quod beatae dolorum
+            cum ullam labore saepe ea ipsam, ipsa sit voluptas repudiandae.
+            Nulla sit quas vero, maiores molestias ipsum tempora eveniet
+            nostrum. Beatae, natus cumque! Veritatis necessitatibus in
+            recusandae amet excepturi, cumque blanditiis aperiam saepe id ipsa
+            soluta inventore, similique quis itaque quibusdam a voluptates
+            tempora. Rerum laborum, sunt fugit, nobis quas harum similique,
+            quisquam laudantium assumenda illum perferendis veniam possimus cum?
+            Laborum laboriosam quia optio ducimus, eum, vero at deserunt dolore
+            impedit nisi accusamus, cupiditate veniam repudiandae commodi
+            aperiam dolorem non. Excepturi, deleniti perspiciatis pariatur
+            repellendus eum dolores cupiditate nostrum eos consequuntur
+            architecto, deserunt nesciunt corrupti numquam similique aliquid
+            nobis illo sapiente magni qui! Illum unde incidunt asperiores fuga
+            consectetur consequatur, accusantium voluptates corrupti quas
+            blanditiis nostrum quae harum!
+        </p>
+
+        <script>
+            document.getElementById("btn-animar").onclick = animacion;
+            function animacion() {
+                console.log("animacion");
+                document.getElementById(
+                    "elemento-animado"
+                ).style.animationPlayState = "running";
+                document.querySelector("h3").innerHTML = "RUNNING";
+                document.querySelector("h3").style.color = "green";
+            }
+
+            document.getElementById("btn-pausar").onclick = pausarAnimacion;
+            function pausarAnimacion() {
+                console.log("pausarAnimacion");
+                document.getElementById(
+                    "elemento-animado"
+                ).style.animationPlayState = "paused";
+                document.querySelector("h3").innerHTML = "PAUSED";
+                document.querySelector("h3").style.color = "red";
+            }
+        </script>
+    </body>
+</html>
