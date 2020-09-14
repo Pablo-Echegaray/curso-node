@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Curso Maquetación Web Avanzada</title>
+
+        <style>
+            body {
+                background: radial-gradient(
+                        circle at left top,
+                        red,
+                        orange 10%,
+                        lightblue 30%,
+                        blue 90%
+                    )
+                    no-repeat;
+                background-size: 100% 100vh;
+            }
+
+            @keyframes miAnimacion {
+                from {
+                    transform: rotateX(180deg) rotateY(-180deg);
+                }
+                to {
+                    transform: rotateX(-180deg) rotateY(180deg);
+                }
+            }
+
+            div {
+                width: 300px;
+                height: 300px;
+                text-align: center;
+                line-height: 300px;
+                color: white;
+                font-size: 30px;
+                border-radius: 50%;
+            }
+            .cubo {
+                position: relative;
+                margin: 100px auto;
+                margin-top: 150px;
+                transform: perspective(700px) rotateX(-30deg) rotateY(30deg);
+                transform-style: preserve-3d;
+                animation: miAnimacion 30s 0s linear forwards infinite; /*  alternate; */
+            }
+
+            .cara {
+                position: absolute;
+                transform: rotate(90deg) translateZ(200px);
+            }
+
+            #superior {
+                background: red;
+                transform: rotateX(90deg) translateZ(200px);
+            }
+
+            #frente {
+                background: blue;
+                transform: translateZ(200px);
+            }
+
+            #atras {
+                background: orange;
+                transform: translateZ(-200px) rotateY(180deg);
+            }
+
+            #derecha {
+                background: limegreen;
+                transform: rotateY(90deg) translateZ(200px);
+            }
+
+            #inferior {
+                background: purple;
+                transform: rotateX(-90deg) translateZ(200px);
+            }
+
+            #izquierda {
+                background: brown;
+                transform: rotateY(-90deg) translateZ(200px);
+                /* transform: rotateY(-90deg) translateZ(150px) ; */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cubo">
+            <div class="cara" id="superior">Full Stack JS Developer</div>
+            <div class="cara" id="frente">Contactame</div>
+            <div class="cara" id="derecha">1156923364</div>
+            <div class="cara" id="izquierda">Estudiante</div>
+            <div class="cara" id="inferior">Soy Pablo Echegaray</div>
+            <div class="cara" id="atras">UNLaM</div>
+        </div>
+    </body>
+</html>

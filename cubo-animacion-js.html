@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubo en CSS - Animación JS</title>
+
+    <style>
+
+        * {
+            user-select: none;            
+        }
+
+        body {
+            background-size: contain;
+            overflow-x: hidden;
+            height: 1000px;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+        }
+
+        .cubo {
+            position: relative;
+            margin: 100px auto;
+            transform: perspective(700px) rotateX(-30deg) rotateY(-30deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1);
+            transform-style: preserve-3d;
+        }
+
+        .cara {
+            position: absolute;
+            text-align: center;
+            line-height: 200px;
+            font-size: 30px;
+        }
+
+        #superior {
+            background: lightblue;
+            background-size: 100% 100%;
+            transform: rotateX(90deg) translateZ(100px) scaleX(1) scaleY(1) scaleZ(1);
+        }
+
+        #frente {
+            background: yellow;
+            background-size: 100% 100%;
+            transform: translateZ(100px);
+        }
+
+        #atras {
+            background: orange;
+            background-size: 100% 100%;
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+
+        #derecha {
+            background: limegreen;
+            background-size: 100% 100%;
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        #inferior {
+            background: purple;
+            background-size: 100% 100%;
+            transform: rotateX(90deg) translateZ(-100px) rotateY(180deg) ;
+        }
+
+        #izquierda {
+            background: pink;
+            background-size: 100% 100%;
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+    <main>
+        <button id="btn-controles"></button>
+        <hr>
+
+        <section id="controles">
+
+            Cubo <br>
+            <button id="btn-rot-x-menos">Rotate X -</button>
+            <button id="btn-rot-x-mas">Rotate X +</button>
+            <span id="text-rot-x"></span>
+            
+            <button id="btn-rot-y-menos">Rotate Y -</button>
+            <button id="btn-rot-y-mas">Rotate Y +</button>
+            <span id="text-rot-y"></span>
+
+            <button id="btn-rot-z-menos">Rotate Z -</button>
+            <button id="btn-rot-z-mas">Rotate Z +</button>
+            <span id="text-rot-z"></span>
+            
+            <hr>
+
+            Cara Frente <br>
+            <button id="btn-transZ-menos">Translate Z -</button>
+            <button id="btn-transZ-mas">Translate Z +</button>
+            <span id="text-transZ"></span>
+            
+            <button id="btn-rotX-menos">Rotate X -</button>
+            <button id="btn-rotX-mas">Rotate X +</button>
+            <span id="text-rotX"></span>
+
+            <button id="btn-rotY-menos">Rotate Y -</button>
+            <button id="btn-rotY-mas">Rotate Y +</button>
+            <span id="text-rotY"></span>
+
+            <button id="btn-rotZ-menos">Rotate Z -</button>
+            <button id="btn-rotZ-mas">Rotate Z +</button>
+            <span id="text-rotZ"></span>
+
+            <hr>
+            Transparencia <br>
+            <button id="btn-alpha-menos">Alpha -</button>
+            <button id="btn-alpha-mas">Alpha +</button>
+            <span id="text-alpha"></span>
+
+            <hr>
+            Animación <br>
+            <button id="btn-animar"></button>
+            <hr>
+        </section>
+
+        <section>
+            <div class="cubo">
+                <div class="cara" id="superior">SUPERIOR</div>
+                <div class="cara" id="frente">FRENTE</div>
+                <div class="cara" id="derecha">DERECHA</div>
+                <div class="cara" id="izquierda">IZQUIERDA</div>
+                <div class="cara" id="inferior">INFERIOR</div>
+                <div class="cara" id="atras">ATRÁS</div>
+            </div>    
+        </section>
+    </main>
+
+
+    <script>
+
+        (function() {
+        /**
+        * Ajuste decimal de un número.
+        *
+        * @param {String}  tipo  El tipo de ajuste.
+        * @param {Number}  valor El numero.
+        * @param {Integer} exp   El exponente (el logaritmo 10 del ajuste base).
+        * @returns {Number} El valor ajustado.
+        */
+        function decimalAdjust(type, value, exp) {
+            // Si el exp no está definido o es cero...
+            if (typeof exp === 'undefined' || +exp === 0) {
+            return Math[type](value);
+            }
+            value = +value;
+            exp = +exp;
+            // Si el valor no es un número o el exp no es un entero...
+            if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+            return NaN;
+            }
+            // Shift
+            value = value.toString().split('e');
+            value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+            // Shift back
+            value = value.toString().split('e');
+            return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+        }
+
+        // Decimal round
+        if (!Math.round10) {
+            Math.round10 = function(value, exp) {
+            return decimalAdjust('round', value, exp);
+            };
+        }
+        // Decimal floor
+        if (!Math.floor10) {
+            Math.floor10 = function(value, exp) {
+            return decimalAdjust('floor', value, exp);
+            };
+        }
+        // Decimal ceil
+        if (!Math.ceil10) {
+            Math.ceil10 = function(value, exp) {
+            return decimalAdjust('ceil', value, exp);
+            };
+        }
+        })();
+
+
+        function registrarBoton(valor, iniValor, delta, idBotonMenos, idBotonMas, idTexto, cb) {
+            valor[0] = iniValor
+            document.getElementById(idTexto).innerHTML = valor[0]
+
+            document.getElementById(idBotonMenos).onclick = () => {
+                valor[0] = valor[0] - delta
+                if(!(valor[0] > -360 && valor[0] < 360)) valor[0] = 0
+                document.getElementById(idTexto).innerHTML = valor[0]
+                if(cb) cb()
+            }
+
+            document.getElementById(idBotonMas).onclick = () => {
+                valor[0] = valor[0] + delta
+                if(!(valor[0] >= -360 && valor[0] < 360)) valor[0] = 0
+                document.getElementById(idTexto).innerHTML = valor[0]
+                if(cb) cb()
+            }
+
+        }
+
+        function transformCubo(classCubo, degX, degY, degZ) {
+            document.querySelector('.'+classCubo).style.transform = 'perspective(700px) rotateX(' + degX + 'deg) rotateY('+ degY +'deg) rotateZ('+ degZ +'deg)'
+        }
+
+        function transformCara(idCara, transZ, rotX, rotY, rotZ) {
+            document.querySelector('#'+idCara).style.transform = 'translateZ(' + transZ + 'px) rotateX('+ rotX +'deg) rotateY('+ rotY +'deg) rotateZ('+ rotZ +'deg)'
+        }
+
+
+        /* --------------------------- */
+        /* BOTÓN MAS / MENOS ROTATE X  */
+        /* --------------------------- */
+        degX = []
+        registrarBoton(degX, -30, 5, 'btn-rot-x-menos', 'btn-rot-x-mas', 'text-rot-x', () => {
+            transformCubo('cubo', degX, degY, degZ)
+        })
+
+        /* --------------------------- */
+        /* BOTÓN MAS / MENOS ROTATE Y  */
+        /* --------------------------- */
+        degY = []
+        registrarBoton(degY, -30, 5, 'btn-rot-y-menos', 'btn-rot-y-mas', 'text-rot-y', () => {
+            transformCubo('cubo', degX, degY, degZ)
+        })
+
+        /* --------------------------- */
+        /* BOTÓN MAS / MENOS ROTATE Z  */
+        /* --------------------------- */
+        degZ = []
+        registrarBoton(degZ, 0, 5, 'btn-rot-z-menos', 'btn-rot-z-mas', 'text-rot-z', () => {
+            transformCubo('cubo', degX, degY, degZ)
+        })
+
+        /* ------------------------------ */
+        /* BOTÓN MAS / MENOS TRANSLATE Z  */
+        /* ------------------------------ */
+        transZ = []
+        registrarBoton(transZ, 100, 5, 'btn-transZ-menos', 'btn-transZ-mas', 'text-transZ', () => {
+            transformCara('frente', transZ, rotX, rotY, rotZ)
+        })
+
+        /* ------------------------------ */
+        /*   BOTÓN MAS / MENOS ROTATE X   */
+        /* ------------------------------ */
+        rotX = []
+        registrarBoton(rotX, 0, 5, 'btn-rotX-menos', 'btn-rotX-mas', 'text-rotX', () => {
+            transformCara('frente', transZ, rotX, rotY, rotZ)
+        })
+
+        /* ------------------------------ */
+        /*   BOTÓN MAS / MENOS ROTATE Y   */
+        /* ------------------------------ */
+        rotY = []
+        registrarBoton(rotY, 0, 5, 'btn-rotY-menos', 'btn-rotY-mas', 'text-rotY', () => {
+            transformCara('frente', transZ, rotX, rotY, rotZ)
+        })
+
+        /* ------------------------------ */
+        /*   BOTÓN MAS / MENOS ROTATE Y   */
+        /* ------------------------------ */
+        rotZ = []
+        registrarBoton(rotZ, 0, 5, 'btn-rotZ-menos', 'btn-rotZ-mas', 'text-rotZ', () => {
+            transformCara('frente', transZ, rotX, rotY, rotZ)
+        })
+
+        /* ------------------------------ */
+        /*      BOTÓN TRANSPARENCIA       */
+        /* ------------------------------ */
+        alpha = 1
+        document.getElementById('text-alpha').innerHTML = alpha
+        document.getElementById('btn-alpha-menos').onclick = function() {
+            if(alpha > 0) alpha -= 0.05
+            alpha = Math.round10(alpha,-2)
+            document.getElementById('text-alpha').innerHTML = alpha
+
+            document.querySelector('#atras').style.opacity = alpha
+            document.querySelector('#frente').style.opacity = alpha
+            document.querySelector('#izquierda').style.opacity = alpha
+            document.querySelector('#derecha').style.opacity = alpha
+            document.querySelector('#inferior').style.opacity = alpha
+            document.querySelector('#superior').style.opacity = alpha
+        }
+
+        document.getElementById('btn-alpha-mas').onclick = function() {
+            if(alpha < 1) alpha += 0.05
+            alpha = Math.round10(alpha,-2)
+            document.getElementById('text-alpha').innerHTML = alpha
+
+            document.querySelector('#atras').style.opacity = alpha
+            document.querySelector('#frente').style.opacity = alpha
+            document.querySelector('#izquierda').style.opacity = alpha
+            document.querySelector('#derecha').style.opacity = alpha
+            document.querySelector('#inferior').style.opacity = alpha
+            document.querySelector('#superior').style.opacity = alpha
+        }
+
+
+        /* ------------------------------ */
+        /*         BOTÓN ANIMACIÓN        */
+        /* ------------------------------ */
+        var refInterval
+        var animar = false
+        document.getElementById('btn-animar').innerText = 'START Animation'
+
+        document.getElementById('btn-animar').onclick = function() {
+            animar = !animar
+            if(animar) {
+                document.getElementById('btn-animar').innerText = 'STOP Animation'
+                refInterval = setInterval(() => {
+                    degX[0]+=1
+                    degY[0]+=3
+                    degZ[0]+=2
+                    document.getElementById('text-rot-x').innerHTML = degX
+                    document.getElementById('text-rot-y').innerHTML = degY
+                    document.getElementById('text-rot-z').innerHTML = degZ
+                    transformCubo('cubo', degX, degY, degZ)
+                },20)
+            }
+            else {
+                document.getElementById('btn-animar').innerText = 'START Animation'
+                clearInterval(refInterval)
+            }
+        }
+
+        /* ------------------------------ */
+        /*         BOTÓN CONTROLES        */
+        /* ------------------------------ */
+        var mostrar = false
+        document.getElementById('btn-controles').innerText = 'Mostrar Controles'
+        document.getElementById('controles').style.display = 'none'
+       
+
+        document.getElementById('btn-controles').onclick = function() {
+            mostrar = !mostrar
+            if(mostrar) {
+                document.getElementById('controles').style.display = 'block'
+                document.getElementById('btn-controles').innerText = 'Ocultar Controles'
+            }
+            else {
+                document.getElementById('controles').style.display = 'none'
+                document.getElementById('btn-controles').innerText = 'Mostrar Controles'
+            }
+        }
+
+    </script>
+
+</body>
+</html>
